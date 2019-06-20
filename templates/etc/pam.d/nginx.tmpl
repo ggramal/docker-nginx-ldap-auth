@@ -1,0 +1,5 @@
+#%PAM-1.0
+
+auth required pam_ldap.so
+auth required pam_succeed_if.so debug user ingroup ${LDAP_AUTH_GROUP}
+account sufficient pam_permit.so

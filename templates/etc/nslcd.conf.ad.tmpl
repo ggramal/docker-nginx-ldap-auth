@@ -1,0 +1,28 @@
+
+uri ${LDAP_URI}
+
+base ${LDAP_BASE_DN}
+
+ldap_version 3
+
+binddn ${LDAP_BIND_USER_DN}
+bindpw ${LDAP_BIND_USER_PASSWORD}
+
+ssl off
+
+scope sub
+
+pagesize 1000
+referrals off
+idle_timelimit 800
+
+filter passwd ${LDAP_USER_FILTER} 
+filter group  ${LDAP_GROUP_FILTER}
+
+map    passwd uid           ${LDAP_LOGIN_ATTRIBUTE}
+map    passwd uidNumber     objectSid:${LDAP_AD_DOMAIN_SID}
+map    passwd gidNumber     objectSid:${LDAP_AD_DOMAIN_SID}
+map    passwd homeDirectory "/home/$cn"
+map    passwd gecos         displayName
+map    passwd loginShell    "/bin/bash"
+map    group  gidNumber     objectSid:${LDAP_AD_DOMAIN_SID}
